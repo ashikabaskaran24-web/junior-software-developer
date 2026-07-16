@@ -1,0 +1,9 @@
+escape sequence for alignment
+\n =new line
+\t =tab (4 space)
+\b=backspace
+\0=null char
+\r=overwritten
+\"=double quotes
+\'=single quotes
+\\=single slash
