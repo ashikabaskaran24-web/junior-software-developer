@@ -7,3 +7,16 @@ escape sequence for alignment
 \"=double quotes
 \'=single quotes
 \\=single slash
+jvm is used to covert the source file to bytes code
+class Sample
+{
+public static void main(String args[])
+{
+System.out.println("ashika is a good \\n girl");
+System.out.print("ashika is a good\b\b girl");
+System.out.println("ashika \"is\" a good 'girl'");
+System.out.println("ashika is a \\good ");
+System.out.println("ashika is a \r good girl");
+}
+}
+
