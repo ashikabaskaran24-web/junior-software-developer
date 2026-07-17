@@ -1,4 +1,11 @@
 (operator)
+arithmetic
+logical
+relational
+assignment
+increment and decrement
+conditional operator
+bitwise operator
 addition=+
 subration=-
 multiplication-*
@@ -63,5 +70,52 @@ boolean d2=!(a>b||c>b);
 System.out.println(d2);
 }
 }
+(assignment operator)
+is used to assign values into the variables
+a+=5 or a=a+5
+a-=5 or a=a-5
+a*=2
+a/=5
+a%=3 or a=a%3
+(increment and decrement)
+the increment opertaor used to increase a variable by 1)
+the decrement opertaor used to decrease a variable by 1)
+i++(post increment)
+++i(pre increment)
+i--(post decrement)
+--i(pre decrement)
+class Oper
+{
+public static void main(String args[])
+{
+int a=3;
+System.out.println(a);
+System.out.println(a++);
+System.out.println(--a);
+System.out.println(a++);
+System.out.println(a);
+System.out.println(--a);
+System.out.println(a++);
+System.out.println(a);
+}
+}
+(conditional opertor or ternary operator)
+is an short form of if else statement
+variable=(cond)?expression1:expression2;
+true means condition 1
+false means condition 2
+class Oper
+{
+public static void main(String args[])
+{
+int a=3;
+int b=1;
+int c=(a>b)?a:b;
+System.out.println(c);
+}
+}
+
+
+
 
 
