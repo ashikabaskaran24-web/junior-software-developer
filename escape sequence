@@ -19,22 +19,20 @@ System.out.println("ashika is a \\good ");
 System.out.println("ashika is a \r good girl");
 }
 }
-addition=+
-subration=-
-multiplication-*
-division-/
-modulo-%
 datatypes
-byte=1 byte(8 bit) -127 to 127
+(number)
+byte=1 byte(8 bit) -128 to 127 (2^8=256/2)=(-128 to 127)
 short=2 byte(16 bit)-32768 to 32767
-int=4 byte(32 bit)2147
-long=8 byte(64 bits)9223372036854775808
-float=4 byte(32 bit)6 to 7 decimal digit
-double=8 byte(64 bit)15 to 16 digit
+int=4 byte(32 bit)-2147483648 to 2147483647
+long=8 byte(64 bits)-9223372036854775808 to 9223372036854775807
+(decimal)
+float=4 byte(32 bit)8 decimal digit
+double=8 byte(64 bit)17 digit
+(true or false)
 boolean=1bit
-char=2 bytes(16 bits)1 character
-non primitive data typr
-String( 0 to infifnity)
-array
+(text)
+char=1 bytes 'character'
+String( 0 to infifnity)//" non primitive data type"
+
 
 
