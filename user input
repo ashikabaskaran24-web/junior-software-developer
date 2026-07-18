@@ -1,0 +1,83 @@
+runtime,dynamic,output all are same
+(step1)
+import header
+eg:import java.util.Scanner;
+(step 2)
+create obj for Scanner class
+eg:Scanner 1=new Scanner(system.in)
+(step 3)
+string data=scan.next();
+string data=scan.nextLine();
+int mark=scan.nextInt();
+float mark=scan.nextFloat();
+double mark=scan.nextDouble();
+long l=scan.nextLong();
+short s=scan.nextShort();
+byte b=scan.nextByte();
+boolean boscan.nextBoolean();
+char c=scan.next().charAt(0);
+(step 4)
+scan.close();
+import java.util.Scanner;
+class Oper
+{
+public static void main(String args[])
+{
+Scanner scan=new Scanner(System.in);
+//System.out.print("enter you name:");
+//String name=scan.next();
+System.out.println("enter you name1:");
+String name1=scan.nextLine();
+//System.out.print("your name"+name);
+System.out.print("your name"+name1);
+scan.close();
+}
+}
+(customer user prg)
+import java.util.Scanner;
+class Oper
+{
+public static void main(String args[])
+{
+Scanner scan=new Scanner(System.in);
+System.out.print("enter you cusname:");
+String name=scan.next();
+System.out.print("enter you cusid:");
+short id=scan.nextShort();
+System.out.print("enter amount:");
+int am=scan.nextInt();
+System.out.print("account valid y/n:");
+char av=scan.next().charAt(0);
+System.out.print("enter height:");
+float hei=scan.nextFloat();
+System.out.println(name);
+System.out.println(id);
+System.out.println(am);
+System.out.println(av);
+System.out.println(hei);
+scan.close();
+}
+}
+(some datatype user prg)
+import java.util.Scanner;
+class Oper
+{
+public static void main(String args[])
+{
+Scanner scan=new Scanner(System.in);
+System.out.print("enter vaule for byte:");
+byte name=scan.nextByte();
+System.out.print("enter the boolean value(true/false):");
+boolean id=scan.nextBoolean();
+System.out.print("enter long value:");
+long am=scan.nextLong();
+System.out.print("enter double value:");
+double av=scan.nextDouble();
+System.out.println(name);
+System.out.println(id);
+System.out.println(am);
+System.out.println(av);
+scan.close();
+}
+}
+(
