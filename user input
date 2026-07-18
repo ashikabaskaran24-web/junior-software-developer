@@ -80,4 +80,25 @@ System.out.println(av);
 scan.close();
 }
 }
-(
+(string functions)
+class Demo1 {
+    public static void main(String args[]) {
+        String name = "ashiKA";
+        System.out.println(name.toUpperCase());
+        System.out.println(name.toLowerCase());
+        System.out.println(name);
+        System.out.println(name.length());
+        System.out.println(name.charAt(4));
+        System.out.println(name.indexOf("h"));
+        System.out.println(name.equals("ashika"));
+        System.out.println(name.equalsIgnoreCase("ashika"));
+        System.out.println(name.substring(2));
+        System.out.println(name.substring(2, 5));
+        System.out.println(name.concat("baskaran"));
+        System.out.println(name.compareTo("kshi"));
+        System.out.println(name.compareTo("muthu"));
+        System.out.println("a".hashCode());
+        System.out.println("h".hashCode());
+    }
+}
+
