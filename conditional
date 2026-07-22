@@ -1,3 +1,4 @@
+//IF
 if(condition)
 {
   true;
@@ -5,3 +6,69 @@ if(condition)
 else{
   false;
 }
+//ELSE IF
+if(c1)
+{
+  true;
+}
+else {
+  false;
+}
+
+//ELECTRICITY BILL PRG
+import java.util.Scanner;
+public class control {
+    public static void main(String args[])
+    {
+        Scanner s1=new Scanner(System.in);
+        System.out.println("Enter your unit:");
+        int unit=s1.nextInt();
+        if(unit<=500)
+        {
+            if(unit<=200)
+            {
+                System.out.println("no amount");
+            }
+            else if(unit>=201&&unit<=400)
+            {
+                System.out.println((unit-200)*4.70);
+            }
+            else 
+            {
+                System.out.println((200*4.70)+(unit-400)*6.30);
+            }
+
+        }
+        else 
+            if(unit<=100)
+            {
+                System.out.println("no amount");
+            }
+            else if(unit>=101 && unit<=400)
+            {
+                System.out.println((unit-100)*4.70);
+            }
+            else if(unit>=401&&unit<=500)
+            {
+                System.out.println((unit-400)*4.70+(300*4.70));
+            }
+            else 
+            {
+                System.out.println((unit-500)*8.40+(200*4.70)+100*6.30);
+            }
+                
+    }
+    
+}/*50 units
+First 200 → Free
+Next 150 → 150 × ₹4.70
+455 units
+First 200 → Free
+Next 200 → 200 × ₹4.70
+Next 55 → 55 × ₹6.30
+600 units
+First 200 → Free
+Next 200 → 200 × ₹4.70
+Next 100 → 100 × ₹6.30
+Next 100 → 100 × ₹8.40 */
+
