@@ -11,8 +11,15 @@ if(c1)
 {
   true;
 }
-else {
-  false;
+else if(c2) {
+  true ;
+}
+else if(c3) {
+  true ;
+}
+else
+{
+false;
 }
 
 //ELECTRICITY BILL PRG
