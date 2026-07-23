@@ -24,6 +24,7 @@ class Disc {
     {
     
         System.out.println(amo*10/100);
+        System.out.format("bye:%d",amo);
     }
     }
 
