@@ -22,7 +22,7 @@ switch(k)
 }*/
 import java.util.Scanner;
 
-public class Switch{
+public class Switch1{
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
 
