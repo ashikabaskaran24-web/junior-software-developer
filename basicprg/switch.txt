@@ -1,0 +1,24 @@
+syntax
+~~~~~~
+switch(expression)
+{
+    case 1:
+      stmt;
+      break;
+    case 2:
+      stmt;
+      break;
+    case 3:
+     break;
+     break;
+    default:
+      default stmt;
+}
+ex:
+int k=1;
+switch(k)
+{
+    
+}
+
+
