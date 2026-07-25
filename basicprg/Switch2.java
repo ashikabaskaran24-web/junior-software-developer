@@ -8,22 +8,23 @@ public class Switch2{
         char c=s.next().charAt(0);
         int a = s.nextInt();
         int b = s.nextInt();
-        switch (c) {
-            case 'a':
+        switch (c) 
+        {
+            case 'a':case'A':
                 System.out.println("add:"+(a+b));
                 break;
 
-            case 'b':
+            case 'b':case'B':
                 System.out.println("sub:"+(a-b));
                 break;
 
-            case 'c':
+            case 'c':case 'C':
                 System.out.println("mul:"+(a*b));
                 break;
-            case 'd':
+            case 'd':case 'D':
                 System.out.println("div:"+(a/b));
                 break;
-            case 'e':
+            case 'e':case 'E':
                 System.out.println("rem:"+(a%b));
                 break;
             default:
@@ -31,6 +32,7 @@ public class Switch2{
         }
     }
 }
+
 
 
 
