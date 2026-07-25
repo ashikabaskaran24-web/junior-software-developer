@@ -1,0 +1,31 @@
+intro to programming
+``````````````````````
+programming
+*set of instructions
+purpose
+~~~~~~~~
+* man power reduce
+* fast and efficiency
+* accuracy
+* problem solving
+* automatic
+* secure storage
+variable
+~~~~~~~~~~~~~~~~
+* is an temporary memory
+* stored in ram if you close the window it erase
+* unique variable name
+* variable  value change to the execution of prg
+variable naming rules
+~~~~~~~~~~~~~~~~~~~~~~`
+* must start with alphabets or _(underscore)
+* do not start with number,but use on second letter onwards
+* cannot use reserved keywords
+* special char does not allow
+* space not allowed
+* variable must be unique
+keywords
+~~~~~~~~~~~~~~~~
+switch,for,static,break,continue,return,break,continue,return,int,while,public,private,void,double,protected,long float,do,
+case,new,byte,if,else,else if,for,while,do while,enum,abstract,boolean,short,
+try,super,catch,extends,implements,finally,null,true,false,interface,this,super
