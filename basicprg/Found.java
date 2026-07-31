@@ -7,6 +7,7 @@ class Found {
     String n1=s1.next();
     System.out.print("character:");
     char ch = s1.next().charAt(0);
+    int count=0;
     for(int i=0;i<n1.length();i++)
     {
         char c=n1.charAt(i);//just copying the n1 string into char because of we need to check by each char
@@ -14,14 +15,10 @@ class Found {
         {
             System.out.println(c);
             System.out.println("found at the index of " +i);
-            break;
+            count++;
         }
-        else
-        {
+    }if(count==0)
             System.out.println(ch+" is not found ");
-            break;
-        }
-    }
    }
 }
 
