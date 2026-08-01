@@ -13,14 +13,11 @@ class Whileven {
         long sum2 = 0;
         long pEven = 1;
         long pOdd = 1;
-
         while (n1 != 0) {
             b = n1 % 10;
-
             if (b % 2 == 0) {
                 even = b * pEven + even;
                 pEven = pEven * 10;
-
                 count1++;
                 sum1 = sum1 + b;
             } else {
