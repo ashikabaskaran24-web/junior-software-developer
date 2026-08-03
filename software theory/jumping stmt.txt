@@ -1,0 +1,11 @@
+jumping stmt
+============
+moving control one stmt to another stmt
+1.continue
+skip remaining stmt
+inside the loop
+directly move on the increment position
+break
+======
+terminate the loop
+inside the loop and switch also

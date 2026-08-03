@@ -1,0 +1,7 @@
+function
+=================
+BODMAS 
+bracket
+orders
+divisions and multiplication
+add and sub
