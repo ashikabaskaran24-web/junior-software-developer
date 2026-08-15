@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+      function img(){      
+        document.getElementById("myid").src="./imagesjs/"+event.target.value+".jpg";}
+    </script>
+</head>
+<body>
+    <h1<center>change background color</center></h1>
+                            <label>select color:</label>
+                            <input type="radio"onchange="img()" name="col" value="cat3">cat
+                            <input type="radio"onchange="img()" name="col" value="rab">rabbit
+                            <input type="radio"onchange="img()" name="col" value="dog">dog
+     <center><img src="" alt="not found" width="70%" id="myid"></center>
+     <br>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Positive Negative</title>
+    <script>
+        function check() {
+            var n = document.getElementById("n1").value;
+            if (n > 0)
+                document.getElementById("result").innerHTML = "Positive";
+            else if (n==0)
+                document.getElementById("result").innerHTML = "zero"
+            else
+                document.getElementById("result").innerHTML = "negative"
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="n1" placeholder="num">
+    <br><br>
+    <input type="button" id="n2" value="check" onclick="check()">
+    <p id="result"></p>
+</body>
+</html>

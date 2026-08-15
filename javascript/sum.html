@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script type="text/javascript">
+    function sum()
+    {
+          var n1=document.getElementById("t1").value;
+          var n2=document.getElementById("t2").value;
+          var tot=parseInt(n1)+parseInt(n2);
+          alert("total"+tot);
+          //document.write(tot);use na html text bos poidum so we use inner html
+    }
+</script>
+<body>
+    <input type="text"id="t1"placeholder="num1">
+    <br> 
+    <input type="text"id="t2"placeholder="num2">
+    <br>
+    <input type="button"value="total"onclick="sum()">
+</body>
+</html>

@@ -1,0 +1,21 @@
+//let local variable global constant no change variable change
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    if(true)
+    {
+       let a=20;/*let is an local variable so not defined outside   var a=20 works*/
+       a++;
+    }
+    a++;
+    document.write(a)
+</script>
+<body>
+    
+</body>
+</html>

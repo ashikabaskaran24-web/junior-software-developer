@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        var i=1;
+        function showimg()
+        {
+            if(i==1)
+             document.getElementById("myimg").src="./imagesjs/dog.jpg";
+            if(i==2)
+             document.getElementById("myimg").src="./imagesjs/rab.jpg";
+            i++;
+            if(i>=3)
+            i=1;
+            setTimeout(showimg,1000);
+        }
+    </script>
+    <style>
+        #myimg{
+            border: 6px solid blue;
+        }
+    </style>
+</head>
+
+<body onload="showimg()">
+    <center><img src="./imagesjs/" alt="not found"id="myimg"></center>
+</body>
+</html>
