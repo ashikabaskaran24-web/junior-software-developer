@@ -6,11 +6,23 @@
     <title>Document</title>
     <link rel="stylesheet" href="yt.css" type="text/css">
 </head>
+<style>
+    div{
+        background-color: white;    
+    width: 400px;
+    height: 400px;
+    border-color: yellow;
+    border-style: solid;
+    border-width: 5px;
+   
+    }
+</style>
 <body>
     <nav>
         <ul>
             <li> <a href="#ch1">1 para</a></li>
              <li> <a href="#ch2">2 para</a></li>
+              <li> <a href="#form1">forms</a></li>
         </ul>
     </nav>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In, maxime?</p>
@@ -29,13 +41,44 @@
     <a href="#">back to top</a>
     <img src="./imageshtml/cat1.img" alt="not found">
     <img src="./imageshtml/cat2.img" loading="lazy" alt="not found">
-    <figure><img src="./imageshtml/cat3.img" title="i am a naughty cat" alt="not found"><figcaption>this is cat 3 img and looks like a naughty cat</figcaption></figure>
+    <figure><img src="./imageshtml/cat3.img" title="i am a naughty cat" alt="not found">
+        <figcaption>this is cat 3 img and looks like a naughty cat</figcaption></figure>
     <aside>
         <details>
-            <summary><mark>hi</mark>how are you what the <time>6.30 am</time></summary><p>this is a secret msg</p>
+            <summary><mark>hi</mark>how are you what the <time>6.30 am</time></summary>
+            <p>this is a secret msg</p>
         </details>
     </aside>
-    
- 
+    <table border="1">
+        <tr><th>lang</th><th>known</th></tr>
+        <tr><td>html</td><td>easy</td></tr>
+        <tr><td>css</td><td>moderate</td></tr>
+         <tr><td>js</td><td>difficult</td></tr>
+         <tr><td colspan="2">js is some what difficult</td>
+          <tr><td rowspan="2">js</td>
+               <td >diffcult</td></tr>
+               <tr> <td >some diffcult</td></tr>
+        </table>
+        <article id="form1">
+        <form action="forms.html"method="get">
+          <label for="n1">name:</label>
+          <input type="text"id="n1"name="name"placeholder="name"><br>
+          <label for="n2">age:</label>
+          <input type="number"id="n2"age="num">
+        </form>
+        </article>
+        <textarea name="message" id="message"placeholder="enter a msg"cols="20"rows="10"></textarea>
+        <p>ashika</p>
+        <div>
+            <h1 style="color: aliceblue;">error makes clever</h1>
+            <p style="color: blue;">nagapattinam</p>
+        </div>
+        <h1>hi</h1>
+         <h1 class="one">how are you</h1>
+         <h1 id="two">how are</h1>
+         <h3>ashika</h3>
+         <div style="padding-left: 30px;padding-top: 50px;">hi ashika</div>
+        <!-- <div style="margin-top: 20px;">
+        </div> -->
 </body>
 </html>

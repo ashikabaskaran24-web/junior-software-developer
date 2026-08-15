@@ -5,4 +5,30 @@ html{
 body{
     color: aqua;
 }
-
+h1
+{
+    color: aqua;
+}
+.one
+{
+    color: brown;
+}
+#two
+{
+    color: blueviolet;
+}
+*{
+    color: burlywood;
+}
+/* .three{
+    background-color: red;    
+    width: 400px;
+    height: 400px;
+   
+}
+.three{
+    background-color: red;    
+    width: 400px;
+    height: 400px;
+   
+} */
