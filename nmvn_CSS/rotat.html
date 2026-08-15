@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    div,img{
+        width: 400px;
+        height: 400px;
+       border-radius: 70%;
+       animation-duration: 5s;
+       animation-direction: alternate;
+       animation-name: cat;
+       animation-timing-function: ease-in;/*ease in slow ease out fast both in ease in out*/
+       animation-iteration-count: infinite;
+       animation-delay: 0s;
+       background-color: black;
+       position: relative;
+       border-color: palevioletred ;
+
+    }
+    @keyframes cat
+    {
+       from{
+        left: 0px;
+       }
+       to{
+         left: 1500px;
+         transform: rotate(360deg);
+       }
+    }
+</style>
+<body>
+   <img src="./imagescss/cat2.img" alt="not found">
+   <div></div>
+</body>
+</html>
