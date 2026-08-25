@@ -1,29 +1,67 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
 function App() {
-  const dis1=()=>{
-         var tag=document.getElementsByTagName("input")
-         var size=tag.length;
-         var sum=0;
-         document.getElementById("res").innerHTML=size;
-         for(var i=0;i<size;i++)
-         {
-          sum=sum+parseInt(tag[i].value)
-         }
-          document.getElementById("res1").innerHTML=sum;
+  const[city,setCity]=useState("nagapattinam")
+  const[result,setResult]=useState(null)
+  const cityFun=(Event)=>{
+    setCity(Event.target.value)
+  }
+  const show=async()=>{
+    console.log("show fn called")
+    const apiurl=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=cfcb5af7df28fdcb7c897d83b4cb7f60`
+    //console.log(apiurl)
+    await axios.get(apiurl).then((response)=>{
+      setResult(response.data)
+      console.log(result)
+    }).catch((err)=>{
+       setResult(err.response.data)
+      console.log(err.response.data)
+    })
   }
   return (
     <div>
-        <h1>forms</h1>
-        <input type="number"placeholder='num'></input><br></br>
-        <input type="number"placeholder='num'></input><br></br>
-        <input type="number"placeholder='num'></input><br></br>
-        <button onClick={dis1} id="tot">total</button>
-        <p id="res"></p>
-        <p id="res1"></p>
-        </div>
-        )
-        }
-        export default App
+      <h1><center>weather report all over world</center></h1>
+      <h1><center>by using entering city name</center></h1>
+      <hr size="5px"color='black'></hr>
+      <input type="text"value={city} onChange={(e)=>cityFun(e)}name="city"placeholder='enter city name'></input>
+      <input type='button'value="find weather report"onClick={show}></input>
+      {result!==null &&result.cod===200&&<><h2>weather:{result.weather[0].main}</h2></>}
+      {result!==null &&result.cod===200&&<><h2>weather:{result.weather[0].description}</h2></>}
+      {result!==null &&result.cod===200&&<><h2>weather:{result.main.temp}</h2></>}
+       {result!==null &&result.cod===200&&<><h2>weather:{result.name}</h2></>}
+        {result!==null &&result.cod==="404"&&<font color='red' size='5'><b>RESULT:{result.message}</b></font>}
+      <hr></hr>
+    </div>
+  )
+}
+export default App
+
+// import React from 'react'
+// function App() {
+//   const dis1=()=>{
+//          var tag=document.getElementsByTagName("input")
+//          var size=tag.length;
+//          var sum=0;
+//          document.getElementById("res").innerHTML=size;
+//          for(var i=0;i<size;i++)
+//          {
+//           sum=sum+parseInt(tag[i].value)
+//          }
+//           document.getElementById("res1").innerHTML=sum;
+//   }
+//   return (
+//     <div>
+//         <h1>forms</h1>
+//         <input type="number"placeholder='num'></input><br></br>
+//         <input type="number"placeholder='num'></input><br></br>
+//         <input type="number"placeholder='num'></input><br></br>
+//         <button onClick={dis1} id="tot">total</button>
+//         <p id="res"></p>
+//         <p id="res1"></p>
+//         </div>
+//         )
+//         }
+//         export default App
 
 // import React from 'react'
 // function App() {
