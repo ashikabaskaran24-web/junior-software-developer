@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Column Grid</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* Controls */
+        .controls {
+            background: white;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .controls input {
+            width: 80px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #333;
+            color: white;
+        }
+
+        button:hover {
+            background: #555;
+        }
+
+        /* Grid */
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        /* Column */
+        .column {
+            min-height: 200px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: lightblue;
+            cursor: grab;
+            position: relative;
+            transition: 0.2s;
+        }
+
+        .column:hover {
+            transform: translateY(-3px);
+        }
+
+        .column h2 {
+            margin-bottom: 15px;
+        }
+
+        .edit-btn {
+            background: white;
+            color: black;
+            border: 1px solid #333;
+        }
+
+        /* Edit box */
+        .edit-box {
+            margin-top: 15px;
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .edit-box input {
+            width: 100%;
+            padding: 7px;
+            margin-bottom: 8px;
+        }
+
+        .edit-box input[type="color"] {
+            height: 40px;
+        }
+
+        .edit-box select {
+            width: 100%;
+            padding: 7px;
+            margin-bottom: 8px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .dragging {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Dynamic Column Grid</h1>
+
+    <!-- Column Count -->
+    <div class="controls">
+
+        <label>
+            Columns:
+        </label>
+
+        <input
+            type="number"
+            id="columnCount"
+            value="3"
+            min="1"
+        >
+
+        <button onclick="setColumns()">
+            Set
+        </button>
+
+        <button onclick="addColumn()">
+            +
+        </button>
+
+        <button onclick="removeColumn()">
+            -
+        </button>
+
+        <br>
+
+        <label>
+            Move Column:
+        </label>
+
+        <input
+            type="number"
+            id="fromIndex"
+            placeholder="From"
+            min="1"
+        >
+
+        <input
+            type="number"
+            id="toIndex"
+            placeholder="To"
+            min="1"
+        >
+
+        <button onclick="moveColumn()">
+            Move
+        </button>
+
+    </div>
+
+
+    <!-- Grid -->
+    <div id="grid"></div>
+
+
+    <script>
+
+        let columns = [];
+
+        let draggedIndex = null;
+
+
+        // Create initial columns
+        function initialize() {
+
+            for (let i = 1; i <= 3; i++) {
+
+                columns.push({
+                    title: "Column " + i,
+                    color: "lightblue"
+                });
+
+            }
+
+            render();
+        }
+
+
+        // Render columns
+        function render() {
+
+            const grid = document.getElementById("grid");
+
+            grid.innerHTML = "";
+
+            // Change number of grid columns
+            grid.style.gridTemplateColumns =
+                `repeat(${columns.length}, 1fr)`;
+
+
+            columns.forEach((column, index) => {
+
+                const div = document.createElement("div");
+
+                div.className = "column";
+
+                div.draggable = true;
+
+                div.style.backgroundColor = column.color;
+
+                div.dataset.index = index;
+
+
+                div.innerHTML = `
+
+                    <h2>${column.title}</h2>
+
+                    <p>Column Index: ${index + 1}</p>
+
+                    <br>
+
+                    <button
+                        class="edit-btn"
+                        onclick="showEdit(${index})"
+                    >
+                        Edit
+                    </button>
+
+                    <div
+                        id="edit-${index}"
+                        class="edit-box hidden"
+                    >
+
+                        <input
+                            type="text"
+                            id="title-${index}"
+                            value="${column.title}"
+                            placeholder="Enter title"
+                        >
+
+                        <input
+                            type="text"
+                            id="colorText-${index}"
+                            value="${column.color}"
+                            placeholder="Enter CSS color"
+                            oninput="changeTextColor(${index})"
+                        >
+
+                        <input
+                            type="color"
+                            id="color-${index}"
+                            value="${getColorValue(column.color)}"
+                            onchange="changePickerColor(${index})"
+                        >
+
+                        <select
+                            onchange="changeSelectColor(${index}, this.value)"
+                        >
+
+                            <option value="">
+                                Select Color
+                            </option>
+
+                            <option value="red">
+                                Red
+                            </option>
+
+                            <option value="lightblue">
+                                Blue
+                            </option>
+
+                            <option value="lightgreen">
+                                Green
+                            </option>
+
+                            <option value="yellow">
+                                Yellow
+                            </option>
+
+                            <option value="pink">
+                                Pink
+                            </option>
+
+                            <option value="orange">
+                                Orange
+                            </option>
+
+                        </select>
+
+                        <button
+                            onclick="saveColumn(${index})"
+                        >
+                            Save
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                // Drag events
+                div.addEventListener("dragstart", function () {
+
+                    draggedIndex = index;
+
+                    div.classList.add("dragging");
+
+                });
+
+
+                div.addEventListener("dragend", function () {
+
+                    div.classList.remove("dragging");
+
+                });
+
+
+                div.addEventListener("dragover", function (e) {
+
+                    e.preventDefault();
+
+                });
+
+
+                div.addEventListener("drop", function (e) {
+
+                    e.preventDefault();
+
+                    const targetIndex = index;
+
+                    if (draggedIndex === targetIndex) {
+                        return;
+                    }
+
+                    const item =
+                        columns.splice(draggedIndex, 1)[0];
+
+                    columns.splice(targetIndex, 0, item);
+
+                    render();
+
+                });
+
+
+                grid.appendChild(div);
+
+            });
+
+        }
+
+
+        // Set exact number of columns
+        function setColumns() {
+
+            const count =
+                Number(document.getElementById("columnCount").value);
+
+            if (count < 1) {
+                return;
+            }
+
+
+            while (columns.length < count) {
+
+                const number = columns.length + 1;
+
+                columns.push({
+                    title: "Column " + number,
+                    color: "lightblue"
+                });
+
+            }
+
+
+            while (columns.length > count) {
+
+                columns.pop();
+
+            }
+
+
+            render();
+
+        }
+
+
+        // Add column
+        function addColumn() {
+
+            const number = columns.length + 1;
+
+            columns.push({
+
+                title: "Column " + number,
+
+                color: "lightblue"
+
+            });
+
+            updateCount();
+
+            render();
+
+        }
+
+
+        // Remove column
+        function removeColumn() {
+
+            if (columns.length <= 1) {
+                return;
+            }
+
+            columns.pop();
+
+            updateCount();
+
+            render();
+
+        }
+
+
+        // Update count input
+        function updateCount() {
+
+            document.getElementById("columnCount").value =
+                columns.length;
+
+        }
+
+
+        // Show edit box
+        function showEdit(index) {
+
+            const box =
+                document.getElementById(`edit-${index}`);
+
+            box.classList.toggle("hidden");
+
+        }
+
+
+        // Save title and color
+        function saveColumn(index) {
+
+            const title =
+                document.getElementById(`title-${index}`).value;
+
+            const color =
+                document.getElementById(`colorText-${index}`).value;
+
+
+            columns[index].title =
+                title || "Column " + (index + 1);
+
+            columns[index].color =
+                color || "lightblue";
+
+
+            render();
+
+        }
+
+
+        // Direct CSS color input
+        function changeTextColor(index) {
+
+            const value =
+                document.getElementById(`colorText-${index}`).value;
+
+            columns[index].color = value;
+
+
+            const column =
+                document.querySelector(
+                    `[data-index="${index}"]`
+                );
+
+            if (column) {
+                column.style.backgroundColor = value;
+            }
+
+        }
+
+
+        // Color picker
+        function changePickerColor(index) {
+
+            const value =
+                document.getElementById(`color-${index}`).value;
+
+            columns[index].color = value;
+
+
+            const text =
+                document.getElementById(`colorText-${index}`);
+
+            text.value = value;
+
+
+            const column =
+                document.querySelector(
+                    `[data-index="${index}"]`
+                );
+
+            if (column) {
+                column.style.backgroundColor = value;
+            }
+
+        }
+
+
+        // Color dropdown
+        function changeSelectColor(index, value) {
+
+            if (value === "") {
+                return;
+            }
+
+            columns[index].color = value;
+
+
+            document.getElementById(`colorText-${index}`).value =
+                value;
+
+
+            const column =
+                document.querySelector(
+                    `[data-index="${index}"]`
+                );
+
+            if (column) {
+                column.style.backgroundColor = value;
+            }
+
+        }
+
+
+        // Convert color name to hex for color picker
+        function getColorValue(color) {
+
+            const colors = {
+
+                red: "#ff0000",
+
+                lightblue: "#add8e6",
+
+                lightgreen: "#90ee90",
+
+                yellow: "#ffff00",
+
+                pink: "#ffc0cb",
+
+                orange: "#ffa500"
+
+            };
+
+
+            if (colors[color]) {
+                return colors[color];
+            }
+
+            if (color.startsWith("#")) {
+                return color;
+            }
+
+            return "#add8e6";
+
+        }
+
+
+        // Move using index
+        function moveColumn() {
+
+            const from =
+                Number(document.getElementById("fromIndex").value);
+
+            const to =
+                Number(document.getElementById("toIndex").value);
+
+
+            if (
+                from < 1 ||
+                to < 1 ||
+                from > columns.length ||
+                to > columns.length
+            ) {
+
+                alert("Invalid index!");
+
+                return;
+
+            }
+
+
+            const item =
+                columns.splice(from - 1, 1)[0];
+
+
+            columns.splice(to - 1, 0, item);
+
+
+            render();
+
+        }
+
+
+        initialize();
+
+    </script>
+
+</body>
+</html>
