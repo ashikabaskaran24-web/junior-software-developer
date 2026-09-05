@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="t1"onclick="show()">click</button>
+    <p id="t2"></p>
+    <p id="t3"></p>
+    <script type="text/javascript">
+        function show()
+        {
+            var arr=[[10,20,30],[40,55,60],[70,80,90]];
+            var n1=" ";
+            var sum=0;
+            var count=0;
+            for(var i=0;i<3;i++)
+          {
+              for(var j=0;j<3;j++)
+              {
+                  n1=n1+arr[i][j]+" ";
+                  if(arr[i][j]%2!=0)
+                  {
+                    count=count+1;
+                  }
+              }
+              n1=n1+"<br>";
+          }
+          var n1=document.getElementById("t2").innerHTML=n1;
+          var n1=document.getElementById("t3").innerHTML="count:"+count;
+        }
+    </script>
+</body>
+</html>

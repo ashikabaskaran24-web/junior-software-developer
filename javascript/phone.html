@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="number"id="t1"placeholder="num1">
+    <button onclick="show()">check</button>
+    <script type="text/javascript">
+        function show()
+        {
+            var n1=document.getElementById("t1").value;
+            var n2=/^[0-9]{10}$/;//^[A-Z]{4,12}//^[a-zA-z]{4,}$/infinite both caps and small/^[a-zA-z1=10]{4,}+///any one value[^a-zA-z1=10]{4,}*/ *zero to finity ^ na apart from given value//^[A-Z]{1}[]{1}[a-z]+$
+            if(n1.match(n2))
+          {
+               alert("valid");
+          }
+          else
+          {
+             alert("invalid");
+          }
+        
+        }
+    </script>
+</body>
+</html>

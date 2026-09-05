@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="t2" onclick="show()">click</button>
+    <p id="t1"></p>
+    <script type="text/javascript">
+        function show(){
+         var n1=document.getElementById("t2")
+         var arr=[1,9,3,4,7,8,2,5,6]
+        for(var i=0;i<arr.length-1;i++)
+        {   
+            for(var j=i+1;j<arr.length-1;j++){
+             if(arr[i]>arr[i+1])
+             {
+              var temp=arr[i];
+              arr[i]=arr[i+1];
+               temp=arr[i];
+             }
+        for( i=0;i<arr.length;i++)
+        {
+            document.getElementById("t1").innerHTML=arr[i];
+        }
+        }
+    }
+    </script>
+</body>
+</html>

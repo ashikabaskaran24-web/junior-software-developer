@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text"id="t1"placeholder="array size">
+    <br>
+    <input type="button" onclick="show()"value="check"></input>
+    <script type="text/javascript">
+        function show()
+        {
+            var size=parseInt(document.getElementById("t1").value);
+            var arr=new Array(size);
+            for(var i=0;i<size;i++)
+           {
+               arr[i]=prompt("value at index:"+i);
+           }
+           for(var i=0;i<size;i++)
+           {
+               document.write("<br>value"+i+" "+arr[i]);
+           }
+
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text"id="t1"placeholder="enter your name "onblur="show()">
+    <img src="" id="myimg"width="80%"align="center">
+    <script type="text/javascript">
+        function show()
+        {
+            var n1=document.getElementById("t1").value;
+            switch(n1)
+            {
+                case "rab":
+                    document.getElementById("myimg").src="./imagesjs/rab.jpg";
+                    break;
+                case "dog":
+                    document.getElementById("myimg").src="./imagesjs/dog.jpg";
+                    break;
+                default:
+                    document.getElementById("myimg").src="./imagesjs/eyecl.jpg";
+            }
+        }
+    </script>
+</body>
+</html>

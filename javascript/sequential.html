@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="show()"id="t1">add</button>
+    <p id="t2"></p>
+    <script type="text/javascript">
+        function show()
+        {
+           var n1=document.getElementById("t2")
+           n1.append("hello");
+           n1.append(document.createElement("<br>"))
+           //var n2=document.getElementById("t2")
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="text"id="t1"placeholder="enter">
+    <button onclick="show()"id="t2">click</button>
+    <div id = "ans">
+
+    </div>
+
+
+    <script type="text/javascript">
+      function show() {
+         var str=document.getElementById("t1").value
+          var sp=" "
+          var wor=" "
+          for(var i=0;i<str.length;i++)
+          {
+           if(str[i]!==' ')
+           {
+               wor=wor+str[i];
+           }
+           if(str[i]===' ')
+           {  
+             if(wor.length>=sp.length)
+            {
+               sp=sp+wor;
+            }wor=" "
+        }
+         if(wor.length>=sp.length)
+            {
+               sp=sp+wor;}
+    }var len=document.getElementById("ans").innerHTML=sp;}
+    </script>
+</body>
+</html>

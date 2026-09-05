@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text"id="t1"placeholder="start number">
+    <br>
+    <input type="text"id="t2"placeholder="stop number">
+    <br>
+    <input type="button" value="start" id="t3"onclick="show()">
+    <p id="ans"></p>
+    <script type="text/javascript">
+        function show(){
+        var n1=parseInt(document.getElementById("t1").value);
+         var n2=parseInt(document.getElementById("t2").value);
+         var res="";
+         for(var i=n1;i<=n2;i++)
+         {
+            res=res+i;
+         }
+         var n3=document.getElementById("ans").innerHTML=res;
+        }
+
+    </script>
+</body>
+</html>

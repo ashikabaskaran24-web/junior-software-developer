@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Guess the number </h1>
+    <input type="text"id="n1">
+    <input type="button"id="n2"value="check"onclick="show()">
+    <p id="res"></p>
+    <script type="text/javascript">
+        var ran=Math.floor(Math.random()*10)+1;
+        var res=document.getElementById("res");
+        var score=10;
+        function show()
+        { 
+            var user=parseInt(document.getElementById("n1").value);
+            if(user==ran){
+            res.textContent="you are righ:t"+score;
+            alert("you won");
+            }
+            else{
+                score=score-1;
+                res.textContent="you are wrong:"+score;
+            }
+        }
+
+    </script>
+
+</body>
+</html>

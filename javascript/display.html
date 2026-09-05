@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <input type="text"id="t1"placeholder="value"> <br>
+   <button onclick="show()">press</button>
+   <p id="t2"></p>
+   <script type="text/javascript">
+    function show()
+    {
+        var b=0;
+        var rem=0;
+        var n1=parseInt(document.getElementById("t1").value);
+        while(n1>0)
+       {
+         b=n1%10;
+         rem=rem+b;
+         n1=Math.floor(n1/10);
+       }
+            var n2=document.getElementById("t2").innerHTML=rem;
+       } 
+   </script>
+</body>
+</html>
