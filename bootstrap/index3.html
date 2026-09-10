@@ -1,0 +1,809 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Task Manager</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-4">
+
+    <h2 class="text-center mb-4">Task Manager</h2>
+
+    <!-- ================= TASK FORM ================= -->
+
+    <div class="card p-4 mb-4 shadow-sm">
+
+        <h4 id="formTitle">Add Task</h4>
+
+        <form id="taskForm">
+
+            <!-- Name -->
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+
+                <input type="text"
+                       id="name"
+                       class="form-control">
+
+                <small id="nameError"
+                       class="text-danger"></small>
+            </div>
+
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label for="description"
+                       class="form-label">
+                    Description
+                </label>
+
+                <textarea id="description"
+                          class="form-control"></textarea>
+
+                <small id="descriptionError"
+                       class="text-danger"></small>
+            </div>
+
+
+            <!-- Assigned To -->
+            <div class="mb-3">
+                <label for="assignedTo"
+                       class="form-label">
+                    Assigned To
+                </label>
+
+                <input type="text"
+                       id="assignedTo"
+                       class="form-control">
+
+                <small id="assignedToError"
+                       class="text-danger"></small>
+            </div>
+
+
+            <!-- Due Date -->
+            <div class="mb-3">
+                <label for="dueDate"
+                       class="form-label">
+                    Due Date
+                </label>
+
+                <input type="date"
+                       id="dueDate"
+                       class="form-control">
+
+                <small id="dueDateError"
+                       class="text-danger"></small>
+            </div>
+
+
+            <!-- Status -->
+            <div class="mb-3">
+                <label for="status"
+                       class="form-label">
+                    Status
+                </label>
+
+                <select id="status"
+                        class="form-select">
+
+                    <option value="">Select Status</option>
+                    <option value="TODO">TODO</option>
+                    <option value="IN PROGRESS">IN PROGRESS</option>
+                    <option value="REVIEW">REVIEW</option>
+                    <option value="DONE">DONE</option>
+
+                </select>
+
+                <small id="statusError"
+                       class="text-danger"></small>
+            </div>
+
+
+            <!-- Save / Update Button -->
+            <button type="submit"
+                    id="submitButton"
+                    class="btn btn-primary">
+                Save
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- ================= TASK LIST ================= -->
+
+    <h4 class="mb-3">Task List</h4>
+
+    <div id="taskList"
+         class="list-group">
+    </div>
+
+
+    <!-- ================= UNIT TEST RESULTS ================= -->
+
+    <div class="card mt-4 mb-4 p-3">
+
+        <h4>Unit Test Results</h4>
+
+        <div id="testResults"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+                     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+// =======================================================
+// TASK CLASS
+// =======================================================
+
+class Task {
+
+    constructor(id, name, description, assignedTo, dueDate, status) {
+
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.assignedTo = assignedTo;
+        this.dueDate = dueDate;
+        this.status = status;
+    }
+
+
+    // Display task as HTML
+    displayTask() {
+
+        return `
+            <div class="card mb-3 shadow-sm"
+                 id="task-${this.id}">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        ${this.name}
+                    </h5>
+
+                    <p>
+                        ${this.description}
+                    </p>
+
+                    <p>
+                        <strong>Assigned To:</strong>
+                        ${this.assignedTo}
+                    </p>
+
+                    <p>
+                        <strong>Due Date:</strong>
+                        ${this.dueDate}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+
+                        <span class="badge bg-primary">
+                            ${this.status}
+                        </span>
+                    </p>
+
+
+                    <!-- Update Button -->
+                    <button
+                        class="btn btn-warning btn-sm me-2"
+                        onclick="taskManager.editTask(${this.id})">
+
+                        Edit
+
+                    </button>
+
+
+                    <!-- Delete Button -->
+                    <button
+                        class="btn btn-danger btn-sm"
+                        onclick="taskManager.deleteTask(${this.id})">
+
+                        Delete
+
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+    }
+}
+
+
+
+// =======================================================
+// TASK MANAGER CLASS
+// =======================================================
+
+class TaskManager {
+
+    constructor() {
+
+        this.tasks = [];
+
+        this.nextId = 1;
+
+        // Task currently being edited
+        this.editingId = null;
+
+        // Load saved tasks
+        this.loadTasks();
+    }
+
+
+    // ===================================================
+    // ADD TASK
+    // ===================================================
+
+    addTask(name, description, assignedTo, dueDate, status) {
+
+        const task = new Task(
+            this.nextId,
+            name,
+            description,
+            assignedTo,
+            dueDate,
+            status
+        );
+
+        // Add task to array
+        this.tasks.push(task);
+
+        // Increase ID
+        this.nextId++;
+
+        // Save to LocalStorage
+        this.saveTasks();
+
+        // Display tasks
+        this.displayTasks();
+    }
+
+
+    // ===================================================
+    // DELETE TASK
+    // ===================================================
+
+    deleteTask(id) {
+
+        // Find task using ID and remove it
+        this.tasks =
+            this.tasks.filter(task => task.id !== id);
+
+        // Save updated array
+        this.saveTasks();
+
+        // Display updated list
+        this.displayTasks();
+    }
+
+
+    // ===================================================
+    // EDIT TASK
+    // ===================================================
+
+    editTask(id) {
+
+        const task =
+            this.tasks.find(task => task.id === id);
+
+        if (!task) {
+            return;
+        }
+
+
+        // Put task information into form
+        document.getElementById("name").value =
+            task.name;
+
+        document.getElementById("description").value =
+            task.description;
+
+        document.getElementById("assignedTo").value =
+            task.assignedTo;
+
+        document.getElementById("dueDate").value =
+            task.dueDate;
+
+        document.getElementById("status").value =
+            task.status;
+
+
+        // Store editing task ID
+        this.editingId = id;
+
+
+        // Rename button
+        document.getElementById("submitButton")
+            .innerText = "Update";
+
+        document.getElementById("formTitle")
+            .innerText = "Update Task";
+
+
+        // Move screen to form
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    // ===================================================
+    // UPDATE TASK
+    // ===================================================
+
+    updateTask(name, description, assignedTo, dueDate, status) {
+
+        const task =
+            this.tasks.find(
+                task => task.id === this.editingId
+            );
+
+
+        if (!task) {
+            return;
+        }
+
+
+        // Update object
+        task.name = name;
+        task.description = description;
+        task.assignedTo = assignedTo;
+        task.dueDate = dueDate;
+        task.status = status;
+
+
+        // Save updated data
+        this.saveTasks();
+
+
+        // Display updated card
+        this.displayTasks();
+
+
+        // Reset editing mode
+        this.editingId = null;
+
+        document.getElementById("submitButton")
+            .innerText = "Save";
+
+        document.getElementById("formTitle")
+            .innerText = "Add Task";
+
+
+        // Clear form
+        document.getElementById("taskForm")
+            .reset();
+    }
+
+
+    // ===================================================
+    // ASSIGN TO
+    // ===================================================
+
+    assignTo(id, person) {
+
+        const task =
+            this.tasks.find(task => task.id === id);
+
+        if (task) {
+
+            task.assignedTo = person;
+
+            this.saveTasks();
+
+            this.displayTasks();
+        }
+    }
+
+
+    // ===================================================
+    // DISPLAY TASKS
+    // ===================================================
+
+    displayTasks() {
+
+        const taskList =
+            document.getElementById("taskList");
+
+        taskList.innerHTML = "";
+
+
+        this.tasks.forEach(task => {
+
+            taskList.innerHTML +=
+                task.displayTask();
+
+        });
+    }
+
+
+    // ===================================================
+    // LOCAL STORAGE - SAVE
+    // ===================================================
+
+    saveTasks() {
+
+        localStorage.setItem(
+            "tasks",
+            JSON.stringify(this.tasks)
+        );
+    }
+
+
+    // ===================================================
+    // LOCAL STORAGE - LOAD
+    // ===================================================
+
+    loadTasks() {
+
+        const savedTasks =
+            localStorage.getItem("tasks");
+
+
+        if (savedTasks) {
+
+            const taskData =
+                JSON.parse(savedTasks);
+
+
+            this.tasks =
+                taskData.map(task =>
+                    new Task(
+                        task.id,
+                        task.name,
+                        task.description,
+                        task.assignedTo,
+                        task.dueDate,
+                        task.status
+                    )
+                );
+
+
+            // Continue ID from highest existing ID
+            if (this.tasks.length > 0) {
+
+                const maxId =
+                    Math.max(
+                        ...this.tasks.map(task => task.id)
+                    );
+
+                this.nextId = maxId + 1;
+            }
+        }
+    }
+}
+
+
+
+// =======================================================
+// CREATE TASK MANAGER
+// =======================================================
+
+const taskManager = new TaskManager();
+
+
+// Display saved tasks when page loads
+taskManager.displayTasks();
+
+
+
+// =======================================================
+// FORM SUBMISSION
+// =======================================================
+
+document.getElementById("taskForm")
+    .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        // Get values
+        const name =
+            document.getElementById("name")
+                .value.trim();
+
+        const description =
+            document.getElementById("description")
+                .value.trim();
+
+        const assignedTo =
+            document.getElementById("assignedTo")
+                .value.trim();
+
+        const dueDate =
+            document.getElementById("dueDate")
+                .value;
+
+        const status =
+            document.getElementById("status")
+                .value;
+
+
+        // Clear errors
+        document.getElementById("nameError")
+            .innerText = "";
+
+        document.getElementById("descriptionError")
+            .innerText = "";
+
+        document.getElementById("assignedToError")
+            .innerText = "";
+
+        document.getElementById("dueDateError")
+            .innerText = "";
+
+        document.getElementById("statusError")
+            .innerText = "";
+
+
+        let valid = true;
+
+
+        // =================================================
+        // VALIDATION
+        // =================================================
+
+        if (name === "") {
+
+            document.getElementById("nameError")
+                .innerText = "Name is required";
+
+            valid = false;
+        }
+
+
+        if (description === "") {
+
+            document.getElementById("descriptionError")
+                .innerText = "Description is required";
+
+            valid = false;
+        }
+
+
+        if (assignedTo === "") {
+
+            document.getElementById("assignedToError")
+                .innerText = "Assigned To is required";
+
+            valid = false;
+        }
+
+
+        if (dueDate === "") {
+
+            document.getElementById("dueDateError")
+                .innerText = "Due Date is required";
+
+            valid = false;
+        }
+
+
+        if (status === "") {
+
+            document.getElementById("statusError")
+                .innerText = "Please select a status";
+
+            valid = false;
+        }
+
+
+        // Stop if invalid
+        if (!valid) {
+            return;
+        }
+
+
+        // =================================================
+        // ADD OR UPDATE
+        // =================================================
+
+        if (taskManager.editingId === null) {
+
+            // Add new task
+            taskManager.addTask(
+                name,
+                description,
+                assignedTo,
+                dueDate,
+                status
+            );
+
+            alert("Task added successfully!");
+
+        } else {
+
+            // Update existing task
+            taskManager.updateTask(
+                name,
+                description,
+                assignedTo,
+                dueDate,
+                status
+            );
+
+            alert("Task updated successfully!");
+        }
+
+});
+
+
+
+// =======================================================
+// UNIT TESTING
+// =======================================================
+
+function test(name, condition) {
+
+    const result =
+        document.createElement("p");
+
+
+    if (condition) {
+
+        result.innerHTML =
+            "✅ PASS - " + name;
+
+    } else {
+
+        result.innerHTML =
+            "❌ FAIL - " + name;
+    }
+
+
+    document.getElementById("testResults")
+        .appendChild(result);
+}
+
+
+
+// =======================================================
+// TASK MANAGER UNIT TESTS
+// =======================================================
+
+function runUnitTests() {
+
+    const manager =
+        new TaskManager();
+
+
+    // -----------------------------
+    // TEST ADD
+    // -----------------------------
+
+    manager.addTask(
+        "Test Task",
+        "Test Description",
+        "Ashika",
+        "2026-09-20",
+        "TODO"
+    );
+
+
+    test(
+        "Add Task",
+        manager.tasks.length === 1
+    );
+
+
+    // -----------------------------
+    // TEST ASSIGN TO
+    // -----------------------------
+
+    manager.assignTo(1, "Muthu");
+
+
+    test(
+        "Assign To",
+        manager.tasks[0].assignedTo === "Muthu"
+    );
+
+
+    // -----------------------------
+    // TEST UPDATE
+    // -----------------------------
+
+    manager.editingId = 1;
+
+    manager.updateTask(
+        "Updated Task",
+        "Updated Description",
+        "Ashika",
+        "2026-09-25",
+        "DONE"
+    );
+
+
+    test(
+        "Update Task",
+        manager.tasks[0].name === "Updated Task" &&
+        manager.tasks[0].status === "DONE"
+    );
+
+
+    // -----------------------------
+    // TEST DELETE
+    // -----------------------------
+
+    manager.deleteTask(1);
+
+
+    test(
+        "Delete Task",
+        manager.tasks.length === 0
+    );
+
+
+    // -----------------------------
+    // UI ADD TEST
+    // -----------------------------
+
+    taskManager.addTask(
+        "UI Test Task",
+        "Testing UI",
+        "Ashika",
+        "2026-09-30",
+        "TODO"
+    );
+
+
+    test(
+        "UI Add Task",
+        document.getElementById("taskList")
+            .innerHTML.includes("UI Test Task")
+    );
+
+
+    // Get ID
+    const testId =
+        taskManager.tasks[
+            taskManager.tasks.length - 1
+        ].id;
+
+
+    // -----------------------------
+    // UI DELETE TEST
+    // -----------------------------
+
+    taskManager.deleteTask(testId);
+
+
+    test(
+        "UI Delete Task",
+        !document.getElementById("taskList")
+            .innerHTML.includes("UI Test Task")
+    );
+}
+
+
+// Run tests
+runUnitTests();
+
+</script>
+
+</body>
+</html>
+
